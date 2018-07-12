@@ -23,7 +23,8 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".WallsActivity"></activity>
+        <activity android:name=".WallsActivity" />
+        <activity android:name=".SetWallpaperActivity"></activity>
     </application>
 
 </manifest>

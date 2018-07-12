@@ -12,9 +12,10 @@ import android.widget.TextView
 import com.prateek.prowalls.R
 import com.prateek.prowalls.WallsActivity
 import com.prateek.prowalls.models.Category
+import com.prateek.prowalls.models.Wallpaper
 import com.squareup.picasso.Picasso
 
-class WallsAdapter(val context: Context, val wallsList: ArrayList<String>) : RecyclerView.Adapter<WallsAdapter.ViewHolder>() {
+class WallsAdapter(val context: Context, val wallsList: ArrayList<Wallpaper>) : RecyclerView.Adapter<WallsAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder{
 
         val view = LayoutInflater.from(context).inflate(R.layout.wall_item, parent, false)
@@ -33,17 +34,17 @@ class WallsAdapter(val context: Context, val wallsList: ArrayList<String>) : Rec
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bindView(wall: String) {
+        fun bindView(wallpaper: Wallpaper) {
             val wallImage = itemView.findViewById<ImageView>(R.id.wallImage)
 
-            Picasso.get().load(wall).fit().centerCrop().into(wallImage)
+            Picasso.get().load(wallpaper.webURL).fit().centerCrop().into(wallImage)
 
-//            itemView.setOnClickListener {
-//                Log.d("TITLE", categoryTitle.text.toString())
+            itemView.setOnClickListener {
+                Log.d("TITLE", wallpaper.fullImageURL)
 //                val wallIntent = Intent(context, WallsActivity::class.java)
 //                wallIntent.putExtra("title", categoryTitle.text.toString().toLowerCase())
 //                context.startActivity(wallIntent)
-//            }
+            }
 
         }
     }

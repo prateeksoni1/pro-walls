@@ -5,12 +5,13 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.prateek.prowalls.models.Wallpaper
 import java.lang.reflect.Method
 
 object FetchService {
 
     var url: String? = null
-    var images = ArrayList<String>()
+    var images = ArrayList<Wallpaper>()
 
     fun fetchWalls(context: Context, complete: (Boolean) -> Unit) {
 
@@ -19,8 +20,7 @@ object FetchService {
             if (list.length() > 0) {
                 for(i in 0 until list.length()) {
                     val obj = list.getJSONObject(i)
-                    images.add(obj.getString("webformatURL"))
-
+                    images.add(Wallpaper(obj.getString("webformatURL"), obj.getString(("largeImageURL"))))
                 }
             }
             complete(true)
