@@ -11,6 +11,8 @@ import kotlinx.android.synthetic.main.activity_walls.*
 
 class WallsActivity : AppCompatActivity() {
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_walls)
@@ -18,20 +20,29 @@ class WallsActivity : AppCompatActivity() {
         val title = intent.extras.getString("title")
         Log.d("InTitle", title)
 
-        FetchService.url = "${URL}&category=${title}"
+
+
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        FetchService.url = "$URL&category=$title"
         FetchService.fetchWalls(this) {isComplete ->
             if (isComplete) {
                 println(FetchService.images)
+
                 wallsListView.adapter = WallsAdapter(this, FetchService.images)
                 wallsListView.layoutManager = GridLayoutManager(this, 2)
+
+                wallsListView.adapter.notifyDataSetChanged()
             }
         }
-
-
     }
 
     override fun onStop() {
         super.onStop()
         FetchService.images.clear()
+
     }
 }

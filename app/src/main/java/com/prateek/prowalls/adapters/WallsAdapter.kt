@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.prateek.prowalls.R
+import com.prateek.prowalls.SetWallpaperActivity
 import com.prateek.prowalls.WallsActivity
 import com.prateek.prowalls.models.Category
 import com.prateek.prowalls.models.Wallpaper
@@ -41,9 +42,9 @@ class WallsAdapter(val context: Context, val wallsList: ArrayList<Wallpaper>) : 
 
             itemView.setOnClickListener {
                 Log.d("TITLE", wallpaper.fullImageURL)
-//                val wallIntent = Intent(context, WallsActivity::class.java)
-//                wallIntent.putExtra("title", categoryTitle.text.toString().toLowerCase())
-//                context.startActivity(wallIntent)
+                val setIntent = Intent(context, SetWallpaperActivity::class.java)
+                setIntent.putExtra("fullURL", wallpaper.fullImageURL)
+                context.startActivity(setIntent)
             }
 
         }
