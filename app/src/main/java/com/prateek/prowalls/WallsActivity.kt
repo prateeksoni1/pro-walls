@@ -17,16 +17,11 @@ class WallsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_walls)
 
-        val title = intent.extras.getString("title")
-        Log.d("InTitle", title)
-
-
-
-
     }
 
     override fun onStart() {
         super.onStart()
+        val title = intent.extras.getString("title")
         FetchService.url = "$URL&category=$title"
         FetchService.fetchWalls(this) {isComplete ->
             if (isComplete) {

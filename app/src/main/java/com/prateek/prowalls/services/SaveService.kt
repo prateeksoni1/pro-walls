@@ -12,7 +12,8 @@ object SaveService {
 
     fun saveImage(context: Context, url: String) {
 
-        Picasso.get().load(url).into(PhotoLoader("test"))
+        val name = url.substring(url.lastIndexOf('/') + 1)
+        Picasso.get().load(url).into(PhotoLoader(name, context))
 
     }
 }
