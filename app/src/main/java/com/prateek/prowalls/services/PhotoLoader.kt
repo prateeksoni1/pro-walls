@@ -32,11 +32,11 @@ class PhotoLoader(private val name: String, val context: Context) : Target {
             val file = File(Environment.getExternalStorageDirectory().path + "/Pictures/ProWalls/" + name)
             try {
                 file.createNewFile()
-                val ostream = FileOutputStream(file)
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 75, ostream)
-                ostream.close()
+//                val ostream = FileOutputStream(file)
+//                bitmap.compress(Bitmap.CompressFormat.JPEG, 75, ostream)
+//                ostream.close()
                 Toast.makeText(context, "Image Saved Successfully!", Toast.LENGTH_SHORT).show()
-                MediaScannerConnection.scanFile(context, arrayOf(file.path) , arrayOf("image/jpeg"), null);
+                MediaScannerConnection.scanFile(context, arrayOf(file.path) , arrayOf("image/jpeg"), null)
                 Log.d("FILE", "stored")
             } catch (e: Exception) {
                 e.printStackTrace()

@@ -1,24 +1,12 @@
 package com.prateek.prowalls
 
+import android.app.WallpaperManager
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Environment
 import com.squareup.picasso.Picasso
-import com.squareup.picasso.Target
 import kotlinx.android.synthetic.main.activity_set_wallpaper.*
-import android.os.Environment.getExternalStorageDirectory
-import android.util.Log
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
-import java.net.HttpURLConnection
-import java.net.MalformedURLException
-import java.net.URL
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.os.AsyncTask
 import com.prateek.prowalls.services.SaveService
-import com.prateek.prowalls.services.SaveService.saveImage
 
 
 class SetWallpaperActivity : AppCompatActivity() {
@@ -34,6 +22,18 @@ class SetWallpaperActivity : AppCompatActivity() {
             SaveService.saveImage(this, fullImage.toString())
         }
 
+        setShareBtn.setOnClickListener {
+            val shareIntent = Intent(Intent.ACTION_SEND)
+            shareIntent.type = "text/*"
+            shareIntent.putExtra(Intent.EXTRA_TEXT, "Get this awesome image from here: \n\n$fullImage \n\nThank me later")
+            startActivity(Intent.createChooser(shareIntent, "Share via"))
+        }
+
+        setSetBtn.setOnClickListener {
+            SaveService.setImage(this, fullImage.toString())
+
+
+        }
 
     }
 
