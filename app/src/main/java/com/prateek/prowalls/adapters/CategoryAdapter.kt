@@ -12,6 +12,9 @@ import android.widget.TextView
 import com.prateek.prowalls.R
 import com.prateek.prowalls.WallsActivity
 import com.prateek.prowalls.models.Category
+import com.prateek.prowalls.services.FetchService
+import com.prateek.prowalls.utilities.URL
+import com.prateek.prowalls.utilities.categoryTitleList
 import com.squareup.picasso.Picasso
 
 class CategoryAdapter(val context: Context, val categoryList: ArrayList<Category>) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
@@ -37,13 +40,17 @@ class CategoryAdapter(val context: Context, val categoryList: ArrayList<Category
             val categoryImage = itemView.findViewById<ImageView>(R.id.categoryImage)
             val categoryTitle = itemView.findViewById<TextView>(R.id.categoryTitle)
 
-            Picasso.get().load(category.image).fit().centerCrop().into(categoryImage)
+            val id = context.resources.getIdentifier(category.title, "drawable", context.packageName)
+            Log.d("ID", id.toString())
+            Log.d("TITLE", category.title)
+            Picasso.get().load(id).resize(200, 200).centerCrop().into(categoryImage)
             categoryTitle.text = category.title.toUpperCase()
 
             itemView.setOnClickListener {
                 Log.d("TITLE", categoryTitle.text.toString())
+                val title = categoryTitle.text.toString().toLowerCase().trim()
+                FetchService.url = "$URL&category=$title"
                 val wallIntent = Intent(context, WallsActivity::class.java)
-                wallIntent.putExtra("title", categoryTitle.text.toString().toLowerCase())
                 context.startActivity(wallIntent)
             }
 

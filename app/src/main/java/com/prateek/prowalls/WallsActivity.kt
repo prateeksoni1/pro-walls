@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.util.Log
+import android.widget.Toast
 import com.prateek.prowalls.adapters.WallsAdapter
 import com.prateek.prowalls.services.FetchService
 import com.prateek.prowalls.utilities.URL
@@ -21,8 +22,7 @@ class WallsActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        val title = intent.extras.getString("title")
-        FetchService.url = "$URL&category=$title"
+
         FetchService.fetchWalls(this) {isComplete ->
             if (isComplete) {
                 println(FetchService.images)
@@ -31,6 +31,10 @@ class WallsActivity : AppCompatActivity() {
                 wallsListView.layoutManager = GridLayoutManager(this, 2)
 
                 wallsListView.adapter.notifyDataSetChanged()
+
+                if (FetchService.images.isEmpty()) {
+                    Toast.makeText(this, "Nothing found :(", Toast.LENGTH_LONG).show()
+                }
             }
         }
     }
